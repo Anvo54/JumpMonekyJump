@@ -5,13 +5,13 @@ using UnityEngine;
 public class monkey : MonoBehaviour {
 
     public GameObject target;
-    public GameObject nearestGrappingPoint;
+    public GameObject nearestGrabbingPointRight;
+	public GameObject nearestGrabbingPointLeft;
 
     public float speed;
 
-    private float startTime;
-
-    public List<GameObject> grappingPointList;
+    public List<GameObject> rightGrabbingPointList;
+	public List<GameObject> leftGrabbingPointList;
 
     // Use this for initialization
     void Start () {
@@ -20,43 +20,88 @@ public class monkey : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        FindNearestGrappingPoint();
+		if (Input.GetKeyDown ("w")) {
+			FindNearestGrappingPointLeft ();
+			target = nearestGrabbingPointLeft;
+		}
+		if (Input.GetKeyDown ("e")) {
+			FindNearestGrappingPointRight ();
+			target = nearestGrabbingPointRight;
+		}
 
-        // The step size is equal to speed times frame time.
-        float step = speed * Time.deltaTime;
-
-        // Move our position a step closer to the target.
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-
-        if (Vector3.Distance(transform.position, target.transform.position) < 1) Destroy(target);
-
+		ClimbToTarget ();
     }
 
+	void ClimbToTarget(){
+		if (target == null)
+			return;
+		// The step size is equal to speed times frame time.
+		float step = speed * Time.deltaTime;
+
+		// Move our position a step closer to the target.
+		transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+
+		if (Vector3.Distance (transform.position, target.transform.position) < 0.1f) {
+			target.transform.Translate (0, -2, 0); //quick hack to prevent monkey getting the same grabbingpoint again
+			target = null;
+			RemoveUnderneathGrabbingPoints ();
+		}
+	}
 
 
-    public void AddNewGrappingPoints(List<GameObject> newGrabbingpoints)
+
+    public void AddRightGrappingPoint(GameObject newGrabbingPoint)
     {
-        foreach (GameObject grappingPoint in newGrabbingpoints)
-        {
-            grappingPointList.Add(grappingPoint);
-        }
-
+		rightGrabbingPointList.Add (newGrabbingPoint);
     }
 
-    void FindNearestGrappingPoint()
+	public void AddLeftGrappingPoint(GameObject newGrabbingPoint)
+	{
+		leftGrabbingPointList.Add (newGrabbingPoint);
+	}
+
+    void FindNearestGrappingPointRight()
     {
-        GameObject[] grappingPoints = GameObject.FindGameObjectsWithTag("grabbingpoint");
-        float nearesetDist = 1000;
+        float lowest = 1000;
         
-        foreach (GameObject grappingPoint in grappingPoints)
+		foreach (GameObject grabbingPoint in rightGrabbingPointList)
         {
-            if (Vector3.Distance(grappingPoint.transform.position, transform.position) < nearesetDist)
-            {
-                nearestGrappingPoint = grappingPoint;
-                nearesetDist = Vector3.Distance(grappingPoint.transform.position, transform.position);
-            }
+			if ((grabbingPoint.transform.position.y < lowest) && (grabbingPoint.transform.position.y > transform.position.y))
+			{
+				nearestGrabbingPointRight = grabbingPoint;
+				lowest = grabbingPoint.transform.position.y;
+			}
         }
-        target = nearestGrappingPoint;
-        print("target set");
+
     }
+
+	void FindNearestGrappingPointLeft()
+	{
+		float lowest = 1000;
+
+		foreach (GameObject grabbingPoint in leftGrabbingPointList)
+		{
+			if ((grabbingPoint.transform.position.y < lowest) && (grabbingPoint.transform.position.y > transform.position.y))
+			{
+				nearestGrabbingPointLeft = grabbingPoint;
+				lowest = grabbingPoint.transform.position.y;
+			}
+		}
+
+	}
+
+	void RemoveUnderneathGrabbingPoints()
+	{
+		for (int i = 0; i < rightGrabbingPointList.Count; i++) {
+			if (rightGrabbingPointList [i].transform.position.y < transform.position.y) {
+				rightGrabbingPointList.Remove (rightGrabbingPointList [i]);
+			}
+		}
+		for (int i = 0; i < leftGrabbingPointList.Count; i++) {
+			if (leftGrabbingPointList [i].transform.position.y < transform.position.y) {
+				leftGrabbingPointList.Remove (leftGrabbingPointList [i]);
+			}
+		}
+	}
+			
 }

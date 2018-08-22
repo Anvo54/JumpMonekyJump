@@ -50,6 +50,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4102429090434390}
   - component: {fileID: 212890780204196184}
+  - component: {fileID: 114247660109514912}
   m_Layer: 0
   m_Name: branch
   m_TagString: branch
@@ -77,7 +78,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570239459601324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.96258, y: -7.911527, z: 0}
+  m_LocalPosition: {x: 132.55603, y: 101.61855, z: 0}
   m_LocalScale: {x: 31.53815, y: 1, z: 1}
   m_Children:
   - {fileID: 4068087547016660}
@@ -98,6 +99,18 @@ Transform:
   m_Father: {fileID: 4102429090434390}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114247660109514912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570239459601324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251cf85926ccc4509aa202dc467f2cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left: 0
 --- !u!212 &212890780204196184
 SpriteRenderer:
   m_ObjectHideFlags: 1
