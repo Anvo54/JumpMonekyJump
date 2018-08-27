@@ -13,6 +13,7 @@ public class treeSpawner : MonoBehaviour {
     private GameObject newtree;
 	public List<GameObject> branchSpawnpointList;
 	public GameObject branch;
+	public GameObject subbranch;
     public GameObject banana;
     public GameObject bird;
     public float bananaProbability;
@@ -56,38 +57,51 @@ public class treeSpawner : MonoBehaviour {
 		bool nextBranchIsLeft = true;
 		for (int i = 0; i< branchSpawnpointList.Count; i++)
 		{
-			if (nextBranchIsLeft == true) { //create branch to the left
-				GameObject newBranch = Instantiate (branch, branchSpawnpointList [i].transform.position, Quaternion.identity);
-				branch newBranchInstance = newBranch.GetComponent<branch> ();
-				newBranchInstance.left = true;
+			//create a new branch
+			GameObject newBranch;
+			GameObject newSubBranch;
+			newBranch = Instantiate (branch, branchSpawnpointList [i].transform.position, Quaternion.identity);
+			branch newBranchInstance = newBranch.GetComponent<branch> ();
+
+			if (nextBranchIsLeft == true) { //will the branch go left
+				newBranchInstance.left = true; 
 				newBranch.transform.Rotate (0, 180, 0);
+				//create a sub branch also to the left
+				newSubBranch = Instantiate(subbranch, new Vector3(newBranch.transform.position.x  -3, newBranch.transform.position.y, 0), Quaternion.identity);
+				newSubBranch.transform.Rotate(0,180,0);
+				FixedJoint2D NBFJ = newBranch.GetComponent<FixedJoint2D> ();
+				NBFJ.anchor = new Vector3 (-0.1f, NBFJ.anchor.y);
 				nextBranchIsLeft = false; //reset leftbranch boolean so the next branch will be right
 
 				foreach (Transform child in newBranch.transform) { //add grabbing point to the left hand side list of grappingpoints for the monkey
 					if (child.gameObject.tag == "grabbingpoint") monkeyinstance.AddLeftGrappingPoint (child.gameObject);
-                    //banana spawn left;
-                    float randomNumber = Random.value * 100;
-                    GameObject newBranchGrabbingPoint = newBranch.transform.Find("grabbingpoint").gameObject;
-                    if (randomNumber < bananaProbability) SpawnBanana(newBranchGrabbingPoint);
                 }
 
 			} else { //create a branch to the right
-				GameObject newBranch = Instantiate (branch, branchSpawnpointList [i].transform.position, Quaternion.identity);
-				branch newBranchInstance = newBranch.GetComponent<branch> ();
 				newBranchInstance.left = false;
+				newSubBranch = Instantiate(subbranch, new Vector3(newBranch.transform.position.x +3 , newBranch.transform.position.y, 0), Quaternion.identity);
+
 				nextBranchIsLeft = true; //reset leftbranch boolean so the next branch will be left
-                //banana spawn right;
-                float randomNumber = Random.value * 100;
-                GameObject newBranchGrabbingPoint = newBranch.transform.Find("grabbingpoint").gameObject;
-                if (randomNumber < bananaProbability) SpawnBanana(newBranchGrabbingPoint);
-
-
-
+               
                 foreach (Transform child in newBranch.transform) { //add grabbing point to the right hand side list of grappingpoints for the monkey
 					if (child.gameObject.tag == "grabbingpoint") monkeyinstance.AddRightGrappingPoint (child.gameObject);
+
 				}
 
             }
+			//banana spawn
+			float randomNumber = Random.value * 100;
+			GameObject newBranchGrabbingPoint = newBranch.transform.Find("grabbingpoint").gameObject;
+			if (randomNumber < bananaProbability) SpawnBanana(newBranchGrabbingPoint);
+
+			//physics stuff, join rigidbodies with joints to get a bending effect
+			FixedJoint2D newTreeJoint = branchSpawnpointList[i].GetComponent<FixedJoint2D>();
+			Rigidbody2D newBranchRB = newBranch.GetComponent<Rigidbody2D>();
+			Rigidbody2D newSubBranchRB = newSubBranch.GetComponent<Rigidbody2D>();
+			newTreeJoint.connectedBody = newBranchRB;
+			FixedJoint2D newBranchJoint = newBranch.GetComponent<FixedJoint2D> ();
+			newBranchJoint.connectedBody = newSubBranchRB;
+
             
 		}
 

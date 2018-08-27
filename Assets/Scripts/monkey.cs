@@ -64,13 +64,14 @@ public class monkey : MonoBehaviour {
 	void ClimbToTarget(){
 		if (target == null)
 			return;
+		float mydist = Vector3.Distance (transform.position, target.transform.position);
 		// The step size is equal to speed times frame time.
-		float step = speed * Time.deltaTime;
+		float step = (mydist /20) + speed * Time.deltaTime;
 
 		// Move our position a step closer to the target.
 		transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
 
-		if (Vector3.Distance (transform.position, target.transform.position) < 0.1f) {
+		if (mydist < 0.1f) {
 			target.transform.Translate (0, -2, 0); //quick hack to prevent monkey getting the same grabbingpoint again
 			target = null;
 			RemoveUnderneathGrabbingPoints ();
