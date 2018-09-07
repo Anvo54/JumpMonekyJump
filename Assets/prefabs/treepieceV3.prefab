@@ -105,6 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4548582771264546}
   - component: {fileID: 212120787099738882}
+  - component: {fileID: 114380593645344678}
   m_Layer: 0
   m_Name: treepieceV3
   m_TagString: Untagged
@@ -346,6 +347,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &114380593645344678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1743283310134322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bc0770d34252e4c9538409cf36bd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212120787099738882
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -14,10 +14,13 @@ public class treeSpawner : MonoBehaviour {
 	public List<GameObject> branchSpawnpointList;
 	public GameObject branch;
 	public GameObject subbranch;
+    public GameObject badbranch;
+    public GameObject badsubbranch;
     public GameObject banana;
     public GameObject bird;
     public float bananaProbability;
     public float birdProbability;
+    public float badbranchProbability;
     // Use this for initialization
     void Start () {
         myCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -43,7 +46,9 @@ public class treeSpawner : MonoBehaviour {
 
 	void CreateBranches()
 	{
-		foreach (Transform child in newtree.transform)
+
+
+        foreach (Transform child in newtree.transform)
 		{
 
 			if (child.gameObject.tag == "branchspawnpoint")
@@ -57,17 +62,24 @@ public class treeSpawner : MonoBehaviour {
 		bool nextBranchIsLeft = true;
 		for (int i = 0; i< branchSpawnpointList.Count; i++)
 		{
-			//create a new branch
-			GameObject newBranch;
-			GameObject newSubBranch;
-			newBranch = Instantiate (branch, branchSpawnpointList [i].transform.position, Quaternion.identity);
-			branch newBranchInstance = newBranch.GetComponent<branch> ();
+            //create a new branch
+            GameObject newBranch;
+            GameObject newSubBranch;
 
+
+            //is it bad brach?
+            if (!BranchIsBad())
+                newBranch = Instantiate (branch, branchSpawnpointList [i].transform.position, Quaternion.identity); 
+            else
+                newBranch = Instantiate(badbranch, branchSpawnpointList[i].transform.position, Quaternion.identity);
+            branch newBranchInstance = newBranch.GetComponent<branch> ();
+            
 			if (nextBranchIsLeft == true) { //will the branch go left
 				newBranchInstance.left = true; 
 				//create a sub branch also to the left
-				newSubBranch = Instantiate(subbranch, new Vector3(newBranch.transform.position.x  -2.3f, newBranch.transform.position.y+0.573f, 0), Quaternion.identity);
-				newBranch.transform.localScale = new Vector3(-1,1,1);
+                if (!newBranchInstance.bad) newSubBranch = Instantiate(subbranch, new Vector3(newBranch.transform.position.x  -2.3f, newBranch.transform.position.y, 0), Quaternion.identity);
+                else newSubBranch = Instantiate(badsubbranch, new Vector3(newBranch.transform.position.x - 2.3f, newBranch.transform.position.y, 0), Quaternion.identity);
+                newBranch.transform.localScale = new Vector3(-1,1,1);
 				newSubBranch.transform.localScale = new Vector3 (-1, 1, 1);
 				FixedJoint2D NBFJ = newBranch.GetComponent<FixedJoint2D> ();
 				//NBFJ.anchor = new Vector3 (-2.32f, NBFJ.anchor.y);
@@ -79,9 +91,10 @@ public class treeSpawner : MonoBehaviour {
 
 			} else { //create a branch to the right
 				newBranchInstance.left = false;
-				newSubBranch = Instantiate(subbranch, new Vector3(newBranch.transform.position.x +2.3f , newBranch.transform.position.y+0.573f, 0), Quaternion.identity);
+                if (!newBranchInstance.bad) newSubBranch = Instantiate(subbranch, new Vector3(newBranch.transform.position.x +2.3f , newBranch.transform.position.y, 0), Quaternion.identity);
+                else newSubBranch = Instantiate(badsubbranch, new Vector3(newBranch.transform.position.x + 2.3f, newBranch.transform.position.y, 0), Quaternion.identity);
 
-				nextBranchIsLeft = true; //reset leftbranch boolean so the next branch will be left
+                nextBranchIsLeft = true; //reset leftbranch boolean so the next branch will be left
                
                 foreach (Transform child in newBranch.transform) { //add grabbing point to the right hand side list of grappingpoints for the monkey
 					if (child.gameObject.tag == "grabbingpoint") monkeyinstance.AddRightGrappingPoint (child.gameObject);
@@ -109,6 +122,13 @@ public class treeSpawner : MonoBehaviour {
 
 
 	}
+
+    bool BranchIsBad()
+    {
+        float randomNumber = Random.value * 100;
+        if (randomNumber < badbranchProbability) return true;
+        else return false;
+    }
 
     void SpawnBanana(GameObject bananaBranch)
     {

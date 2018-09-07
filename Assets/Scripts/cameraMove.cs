@@ -9,10 +9,12 @@ public class cameraMove : MonoBehaviour {
 	private float smoothTime;
 	private Vector3 velocity = Vector3.zero;
 	Camera cam;
+	private string monkeyState;
 
 	// Use this for initialization
 	void Start () {
 		cam = GetComponent<Camera>();
+
 	}
 	
 	// Update is called once per frame
@@ -21,7 +23,8 @@ public class cameraMove : MonoBehaviour {
 	if (pPos.y>Screen.height/2){
 		CameraFollower();
 	} else{
-		CameraMover();		
+			monkeyState = target.GetComponent<monkey> ().mystate;
+			if (monkeyState != "dead") 	CameraMover();		
 	}
 	
 

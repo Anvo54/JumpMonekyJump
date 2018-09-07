@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114772215917683838}
   - component: {fileID: 61556604062646628}
   - component: {fileID: 50675932299802968}
+  - component: {fileID: 114987798400578876}
   m_Layer: 0
   m_Name: bird
   m_TagString: Untagged
@@ -79,7 +80,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.5}
+    oldSize: {x: 6.6666665, y: 6.6666665}
     newSize: {x: 0.5, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -102,6 +103,17 @@ MonoBehaviour:
   speed: 5
   frequency: 4
   magnitude: 5
+--- !u!114 &114987798400578876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559657029688492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bc0770d34252e4c9538409cf36bd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212543962182698410
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -137,7 +149,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 56c7dd4823ac4514ebab3fd04e3ea174, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 145b1b267adf94d9fb6c94a3ed973dc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
