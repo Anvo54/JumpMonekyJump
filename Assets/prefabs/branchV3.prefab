@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 50006921675581082}
   - component: {fileID: 61693736008663008}
   - component: {fileID: 255091254527966882}
+  - component: {fileID: 114662200764463506}
   m_Layer: 0
   m_Name: branchV3
   m_TagString: branch
@@ -94,7 +95,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1621708015804338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.7, y: -6.2, z: 0.30112606}
+  m_LocalPosition: {x: -2.8393843, y: 55.09148, z: 0.30112606}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4371679850804802}
@@ -138,7 +139,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 1, y: 0.5}
-    oldSize: {x: 2.31, y: 1.4}
+    oldSize: {x: 2.3, y: 2.31}
     newSize: {x: 2.31, y: 1.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -147,6 +148,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2102544, y: 0.6}
   m_EdgeRadius: 0
+--- !u!114 &114662200764463506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621708015804338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bc0770d34252e4c9538409cf36bd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114877891656126196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,6 +171,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   left: 0
+  bad: 0
+  broken: 0
+  breakingParticles: {fileID: 0}
+  smokeParticles: {fileID: 0}
 --- !u!212 &212953316950491056
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -194,7 +210,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 99f05ce42312c4e72bd1893ca6b335ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4e1eff2c8a2939c4f928fbf1d1627768, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -218,7 +234,7 @@ FixedJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 1.8805314, y: -0.004732132}
-  m_ConnectedAnchor: {x: 0.18053138, y: -6.204732}
+  m_Anchor: {x: 2.062995, y: -0.13610458}
+  m_ConnectedAnchor: {x: -0.77638936, y: 54.955376}
   m_DampingRatio: 1
   m_Frequency: 1800
