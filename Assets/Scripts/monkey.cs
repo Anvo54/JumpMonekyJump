@@ -11,12 +11,18 @@ public class monkey : MonoBehaviour {
 	public GameObject nearestGrabbingPointLeft;
     public float speed;
     public float bananaOMeter;
+	public GameObject musicPlayer;
 
     public List<GameObject> rightGrabbingPointList;
 	public List<GameObject> leftGrabbingPointList;
 	public Text bananaOMeterText;
 
 	private Rigidbody2D myRB;
+	private bool doubleTap;
+	private bool lastTapRight;
+	private int mouseClicks;
+	private bool mouseClicksStarted;
+	static readonly float MOUSE_TIMER_LIMIT = 0.25f;
 
 
     // Use this for initialization
@@ -32,34 +38,28 @@ public class monkey : MonoBehaviour {
 			
 
 			bananaOMeter -= Time.deltaTime * 10;
-
-			Debug.Log (bananaOMeter);
-
+		//	Debug.Log (bananaOMeter);
 			bananaOMeterText.text = Mathf.Round (bananaOMeter).ToString ();
 
 			if (Input.GetMouseButtonDown (0)) {
-
+				OnClick ();
 				if (Input.mousePosition.x < Screen.width / 2) {
-					Debug.Log ("Vasen");
-					FindNearestGrappingPointLeft ();
-					target = nearestGrabbingPointLeft;
+					JumpLeft ();
 				} else if (Input.mousePosition.x > Screen.width / 2) {
-					Debug.Log ("Oikea");
-					FindNearestGrappingPointRight ();
-					target = nearestGrabbingPointRight;
+					JumpRight ();
 				}
+				if (IsDoubleTap())
+					doubleTap = true;
 			}
 
 
 
 
 			if (Input.GetKeyDown ("w")) {
-				FindNearestGrappingPointLeft ();
-				target = nearestGrabbingPointLeft;
+				JumpLeft ();
 			}
 			if (Input.GetKeyDown ("e")) {
-				FindNearestGrappingPointRight ();
-				target = nearestGrabbingPointRight;
+				JumpRight ();
 			}
 
 			ClimbToTarget ();
@@ -83,12 +83,22 @@ public class monkey : MonoBehaviour {
 		if (mydist < 0.1f) {
 			branch grabbedBranch = target.transform.parent.gameObject.GetComponent<branch> ();
 			if (grabbedBranch.bad == true) {
-				StartCoroutine ("CartoonDrop");
+				if (!grabbedBranch.broken) grabbedBranch.Break ();
+				if (!doubleTap)	StartCoroutine ("CartoonDrop", grabbedBranch);
 			}
-				
-			target.transform.Translate (0, -2, 0); //quick hack to prevent monkey getting the same grabbingpoint again
+			target.GetComponent<grabbingpoint> ().grabbable = false;
 			target = null;
 			RemoveUnderneathGrabbingPoints ();
+
+			if (doubleTap == true) {
+				if (lastTapRight)
+					JumpRight ();
+				else
+					JumpLeft ();
+				doubleTap = false;	
+			}
+
+
 		}
 	}
 
@@ -125,7 +135,7 @@ public class monkey : MonoBehaviour {
 
 		foreach (GameObject grabbingPoint in leftGrabbingPointList)
 		{
-			if ((grabbingPoint.transform.position.y < lowest) && (grabbingPoint.transform.position.y > transform.position.y))
+			if ((grabbingPoint.transform.position.y < lowest) && (grabbingPoint.transform.position.y > transform.position.y) && (grabbingPoint.GetComponent<grabbingpoint>().grabbable))
 			{
 				nearestGrabbingPointLeft = grabbingPoint;
 				lowest = grabbingPoint.transform.position.y;
@@ -160,11 +170,76 @@ public class monkey : MonoBehaviour {
 
     }
 
-	IEnumerator CartoonDrop(){
-		mystate = "dead";
-		yield return new WaitForSeconds (2f);
-		myRB.isKinematic = false;
-		myRB.AddForce (new Vector2 (0, -100), ForceMode2D.Impulse);
+	IEnumerator CartoonDrop(branch currentBranch){
+		if (Vector3.Distance (transform.position, currentBranch.gameObject.transform.Find("grabbingpoint").transform.position) < 0.1f) {
+			mystate = "dead";
+			musicPlayer.GetComponent<AudioSource> ().enabled = false;
+			yield return new WaitForSeconds (2f);
+			myRB.isKinematic = false;
+			myRB.AddForce (new Vector2 (0, -100), ForceMode2D.Impulse);
+			doubleTap = false;
+			StartCoroutine ("RestartDelay");
+		}
+			
 	}
 
+	public static bool IsDoubleTap(){
+		bool result = false;
+		float MaxTimeWait = 1;
+		float VariancePosition = 1;
+
+		if( Input.touchCount == 1  && Input.GetTouch(0).phase == TouchPhase.Began)
+		{
+			float DeltaTime = Input.GetTouch (0).deltaTime;
+			float DeltaPositionLenght=Input.GetTouch (0).deltaPosition.magnitude;
+
+			if ( DeltaTime> 0 && DeltaTime < MaxTimeWait && DeltaPositionLenght < VariancePosition)
+				result = true;                
+		}
+		Debug.Log (result);
+		return result;
+	}
+
+	private void JumpLeft(){
+		Debug.Log ("Vasen");
+		FindNearestGrappingPointLeft ();
+		target = nearestGrabbingPointLeft;
+		lastTapRight = false;
+	}
+
+	private void JumpRight(){
+		Debug.Log ("Oikea");
+		FindNearestGrappingPointRight ();
+		target = nearestGrabbingPointRight;
+		lastTapRight = true;
+	}
+
+	public void OnClick(){
+		mouseClicks++;
+		if(mouseClicksStarted){
+			return;
+		}
+		mouseClicksStarted = true;
+		Invoke("checkMouseDoubleClick",MOUSE_TIMER_LIMIT);
+	}
+
+
+	private void checkMouseDoubleClick()
+	{
+		if(mouseClicks > 1){
+			Debug.Log("Doubleclic");
+			doubleTap = true;
+
+		}else{
+			Debug.Log("Singleclick");
+
+		}
+		mouseClicksStarted = false;
+		mouseClicks = 0;
+	}
+
+	IEnumerator RestartDelay(){
+		yield return new WaitForSeconds (3f);
+		Application.LoadLevel(Application.loadedLevel);
+	}
 }

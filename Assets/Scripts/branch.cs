@@ -27,11 +27,13 @@ public class branch : MonoBehaviour {
 
     public void Break()
     {
+		broken = true;
         subBranch = myJoint.connectedBody.gameObject;
         subBranchRB = subBranch.GetComponent<Rigidbody2D>();
         myJoint.breakForce = 100;
         myJoint.breakTorque = 100;
         float randomForce = Random.value * 100;
+		subBranchRB.AddTorque (50);
         Vector2 randomDir = new Vector2((Random.value * randomForce)-(Random.value * randomForce), (Random.value * randomForce) - (Random.value * randomForce));
         subBranchRB.AddForce(randomDir, ForceMode2D.Impulse);
         GameObject newBreakingParticles = Instantiate(breakingParticles, subBranch.transform.position, Quaternion.identity);
