@@ -21,6 +21,7 @@ public class treeSpawner : MonoBehaviour {
     public float bananaProbability;
     public float birdProbability;
     public float badbranchProbability;
+	public float nobranchProbability;
     // Use this for initialization
     void Start () {
         myCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -66,7 +67,8 @@ public class treeSpawner : MonoBehaviour {
             GameObject newBranch;
             GameObject newSubBranch;
 
-
+			if (BranchIsBad())
+				continue;
             //is it bad brach?
             if (!BranchIsBad())
                 newBranch = Instantiate (branch, branchSpawnpointList [i].transform.position, Quaternion.identity); 
@@ -129,6 +131,13 @@ public class treeSpawner : MonoBehaviour {
         if (randomNumber < badbranchProbability) return true;
         else return false;
     }
+
+	bool BranchIsNot()
+	{
+		float randomNumber = Random.value * 100;
+		if (randomNumber < nobranchProbability) return true;
+		else return false;
+	}
 
     void SpawnBanana(GameObject bananaBranch)
     {

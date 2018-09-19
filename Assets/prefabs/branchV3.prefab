@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4124580376964246}
+  - component: {fileID: 114873090666102404}
   m_Layer: 0
   m_Name: grabbingpoint
   m_TagString: grabbingpoint
@@ -95,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1621708015804338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.8393843, y: 55.09148, z: 0.30112606}
+  m_LocalPosition: {x: -6.5132475, y: 6.5573444, z: 0.30112606}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4371679850804802}
@@ -157,6 +158,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50bc0770d34252e4c9538409cf36bd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114873090666102404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1477482153922868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960a74af9a3784e18a35e4c73ddde069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114877891656126196
@@ -235,6 +247,6 @@ FixedJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 2.062995, y: -0.13610458}
-  m_ConnectedAnchor: {x: -0.77638936, y: 54.955376}
+  m_ConnectedAnchor: {x: -4.4502525, y: 6.42124}
   m_DampingRatio: 1
   m_Frequency: 1800
