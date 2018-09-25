@@ -26,9 +26,6 @@ public class cameraMove : MonoBehaviour {
 			monkeyState = target.GetComponent<monkey> ().mystate;
 			if (monkeyState != "dead") 	CameraMover();		
 	}
-	
-
-
 
 
 	}

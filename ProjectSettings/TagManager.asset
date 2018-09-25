@@ -7,6 +7,12 @@ TagManager:
   - branchspawnpoint
   - branch
   - grabbingpoint
+  - monkey
+  - banana
+  - attackBird
+  - powerup
+  - shroom
+  - bird
   layers:
   - Default
   - TransparentFX
@@ -16,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - postprocessing
   - 
   - 
   - 

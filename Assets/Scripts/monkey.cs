@@ -16,13 +16,17 @@ public class monkey : MonoBehaviour {
     public List<GameObject> rightGrabbingPointList;
 	public List<GameObject> leftGrabbingPointList;
 	public Text bananaOMeterText;
+	public GameObject myEyes;
+	public GameObject postProcessingVol;
 
 	private Rigidbody2D myRB;
 	private bool doubleTap;
 	private bool lastTapRight;
 	private int mouseClicks;
 	private bool mouseClicksStarted;
-	static readonly float MOUSE_TIMER_LIMIT = 0.25f;
+	private bool jumping;
+	static readonly float MOUSE_TIMER_LIMIT = 0.35f;
+
 
 
     // Use this for initialization
@@ -41,12 +45,14 @@ public class monkey : MonoBehaviour {
 		//	Debug.Log (bananaOMeter);
 			bananaOMeterText.text = Mathf.Round (bananaOMeter).ToString ();
 
-			if (Input.GetMouseButtonDown (0)) {
+			if (Input.GetMouseButtonUp (0)) {
 				OnClick ();
 				if (Input.mousePosition.x < Screen.width / 2) {
-					JumpLeft ();
-				} else if (Input.mousePosition.x > Screen.width / 2) {
-					JumpRight ();
+					lastTapRight = false;
+					if (jumping == false) JumpLeft ();
+				} else if (Input.mousePosition.x > Screen.width / 2){
+					lastTapRight = true;
+					if (jumping == false) JumpRight ();
 				}
 				if (IsDoubleTap())
 					doubleTap = true;
@@ -96,7 +102,8 @@ public class monkey : MonoBehaviour {
 				else
 					JumpLeft ();
 				doubleTap = false;	
-			}
+			} else
+				jumping = false;
 
 
 		}
@@ -120,7 +127,7 @@ public class monkey : MonoBehaviour {
         
 		foreach (GameObject grabbingPoint in rightGrabbingPointList)
         {
-			if ((grabbingPoint.transform.position.y < lowest) && (grabbingPoint.transform.position.y > transform.position.y))
+			if ((grabbingPoint.transform.position.y < lowest) && (grabbingPoint.transform.position.y > transform.position.y) && (grabbingPoint.GetComponent<grabbingpoint>().grabbable))
 			{
 				nearestGrabbingPointRight = grabbingPoint;
 				lowest = grabbingPoint.transform.position.y;
@@ -168,13 +175,29 @@ public class monkey : MonoBehaviour {
             Debug.Log("Banana Collected");
         }
 
+		if (collision.gameObject.tag == "shroom")
+		{
+			Destroy(collision.gameObject);
+			postProcessingVol.SetActive (true);
+		}
+
     }
 
-	IEnumerator CartoonDrop(branch currentBranch){
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "attackBird")
+        {
+            GetComponent<Rigidbody2D>().isKinematic = false;
+            Debug.Log("Attack bird hitted!");
+        }
+    }
+
+    IEnumerator CartoonDrop(branch currentBranch){
 		if (Vector3.Distance (transform.position, currentBranch.gameObject.transform.Find("grabbingpoint").transform.position) < 0.1f) {
 			mystate = "dead";
 			musicPlayer.GetComponent<AudioSource> ().enabled = false;
-			yield return new WaitForSeconds (2f);
+			myEyes.SetActive (true);
+			yield return new WaitForSeconds (Random.value + 0.25f);
 			myRB.isKinematic = false;
 			myRB.AddForce (new Vector2 (0, -100), ForceMode2D.Impulse);
 			doubleTap = false;
@@ -196,7 +219,7 @@ public class monkey : MonoBehaviour {
 			if ( DeltaTime> 0 && DeltaTime < MaxTimeWait && DeltaPositionLenght < VariancePosition)
 				result = true;                
 		}
-		Debug.Log (result);
+	//	Debug.Log (result);
 		return result;
 	}
 
@@ -204,14 +227,14 @@ public class monkey : MonoBehaviour {
 		Debug.Log ("Vasen");
 		FindNearestGrappingPointLeft ();
 		target = nearestGrabbingPointLeft;
-		lastTapRight = false;
+		jumping = true;
 	}
 
 	private void JumpRight(){
 		Debug.Log ("Oikea");
 		FindNearestGrappingPointRight ();
 		target = nearestGrabbingPointRight;
-		lastTapRight = true;
+		jumping = true;
 	}
 
 	public void OnClick(){

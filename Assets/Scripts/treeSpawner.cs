@@ -5,7 +5,6 @@ using UnityEngine;
 public class treeSpawner : MonoBehaviour {
 
     public GameObject tree;
-    public GameObject mycamera;
     public GameObject mymonkey;
     public GameObject myCamera;
 	private monkey monkeyinstance;
@@ -17,11 +16,18 @@ public class treeSpawner : MonoBehaviour {
     public GameObject badbranch;
     public GameObject badsubbranch;
     public GameObject banana;
+	public GameObject shroom;
     public GameObject bird;
+    public GameObject attackBird;
+    public GameObject squirrel;
     public float bananaProbability;
+	public float shroomProbability;
     public float birdProbability;
+    public float attackbirdProbability;
+    public float squirrelProbability;
     public float badbranchProbability;
 	public float nobranchProbability;
+    public float climbHeight;
     // Use this for initialization
     void Start () {
         myCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -31,7 +37,9 @@ public class treeSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (transform.position.y - mycamera.transform.position.y < 25) CreateNewTree();
+		if (transform.position.y - myCamera.transform.position.y < 25) CreateNewTree();
+        climbHeight = monkeyinstance.gameObject.transform.position.y;
+      //  Debug.Log(climbHeight);
     }
 
     void CreateNewTree()
@@ -40,8 +48,64 @@ public class treeSpawner : MonoBehaviour {
         transform.Translate(0, 20, 0);
 		CreateBranches ();
 
-        float randomNumber = Random.value * 100;
-        if (randomNumber < birdProbability) SpawnBird(newtree);
+        float randomNumber;
+
+        if (climbHeight < 50)
+        {
+            Debug.Log("below 50");
+            randomNumber = Random.value * 100;
+            if (randomNumber< birdProbability)
+            {
+                SpawnBird(newtree);
+            }
+
+        }
+        else if(climbHeight > 50 && climbHeight < 100)
+        {
+            myCamera.GetComponent<Camera>().backgroundColor = new Color(0, 0, 0);
+            Debug.Log("Reached 100m");
+			badbranchProbability = 20;
+            randomNumber = Random.value * 100;
+            if (randomNumber < birdProbability)
+            {
+                SpawnBird(newtree);
+
+            }
+
+            randomNumber = Random.value * 100;
+            if(randomNumber < squirrelProbability)
+            {
+                SpawnSquirrel(newtree);
+            }
+        }
+        else if (climbHeight > 150)
+        {
+            Debug.Log("150m Reached!");
+			badbranchProbability = 30;
+            randomNumber = Random.value * 100;
+            if (randomNumber < birdProbability)
+            {
+                SpawnBird(newtree);
+            }
+            randomNumber = Random.value * 100;
+            if ( randomNumber < attackbirdProbability)
+            {
+                SpawnAttackBird(newtree);
+            }
+            randomNumber = Random.value * 100;
+            if ( randomNumber < squirrelProbability)
+            {
+                SpawnSquirrel(newtree);
+            } 
+        }
+
+        /*if (randomNumber < birdProbability) {
+
+            SpawnBird(newtree);
+            //SpawnAttackBird(newtree);
+            //Squirrel(newtree);
+        }*/
+        
         branchSpawnpointList.Clear();
     }
 
@@ -107,7 +171,13 @@ public class treeSpawner : MonoBehaviour {
 			//banana spawn
 			float randomNumber = Random.value * 100;
 			GameObject newBranchGrabbingPoint = newBranch.transform.Find("grabbingpoint").gameObject;
-			if (randomNumber < bananaProbability) SpawnBanana(newBranchGrabbingPoint);
+			if (randomNumber < bananaProbability)
+				SpawnBanana (newBranchGrabbingPoint);
+			else {
+				randomNumber = Random.value * 100;
+				if (randomNumber < shroomProbability)
+					SpawnShroom (newBranchGrabbingPoint);
+			}
 
 			//physics stuff, join rigidbodies with joints to get a bending effect
 			FixedJoint2D newTreeJoint = branchSpawnpointList[i].GetComponent<FixedJoint2D>();
@@ -144,11 +214,31 @@ public class treeSpawner : MonoBehaviour {
         Instantiate(banana, bananaBranch.transform.position, Quaternion.identity);
     }
 
+	void SpawnShroom(GameObject shroomBranch)
+	{
+		Instantiate(shroom, shroomBranch.transform.position, Quaternion.identity);
+	}
+
     void SpawnBird(GameObject birdTree)
     {
         float randomYOffset = Random.value * 10;
         Vector3 birdPosition = new Vector3(birdTree.transform.position.x + 20, myCamera.transform.position.y +5 + randomYOffset, 0);
         Instantiate(bird, birdPosition, Quaternion.identity);
+    }
+
+        void SpawnAttackBird(GameObject attackBirdTree)
+    {
+        float randomYOffset = Random.Range(5,+8);
+        Vector3 birdPosition = new Vector3(attackBirdTree.transform.position.x + 6, myCamera.transform.position.y +5 + randomYOffset, 0);
+        Instantiate(attackBird, birdPosition, Quaternion.identity);
+    }
+
+    void SpawnSquirrel(GameObject squirrelTree)
+    {
+        float randomYOffset = Random.Range(5, +8);
+		Vector3 squirrelPosition = new Vector3(squirrelTree.transform.position.x + 6, monkeyinstance.transform.position.y - 10, 0);
+        Instantiate(squirrel, squirrelPosition, Quaternion.identity);
+   //     squirrel.transform.Translate(0, -10, 0);
     }
 
 }

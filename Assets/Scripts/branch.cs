@@ -32,10 +32,10 @@ public class branch : MonoBehaviour {
         subBranchRB = subBranch.GetComponent<Rigidbody2D>();
         myJoint.breakForce = 100;
         myJoint.breakTorque = 100;
-        float randomForce = Random.value * 100;
-		subBranchRB.AddTorque (50);
-        Vector2 randomDir = new Vector2((Random.value * randomForce)-(Random.value * randomForce), (Random.value * randomForce) - (Random.value * randomForce));
-        subBranchRB.AddForce(randomDir, ForceMode2D.Impulse);
+        float randomForce = 20 + Random.value * 100;
+		subBranchRB.AddTorque (20 + Random.value * 100);
+        Vector2 randomDir = new Vector2(Random.value, Random.value);
+        subBranchRB.AddForce(randomDir * randomForce, ForceMode2D.Impulse);
         GameObject newBreakingParticles = Instantiate(breakingParticles, subBranch.transform.position, Quaternion.identity);
         GameObject newSmokeParticles = Instantiate(smokeParticles, subBranch.transform.position, Quaternion.identity);
     }
@@ -43,6 +43,8 @@ public class branch : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if ((bad == true) && (broken == false)) StartCoroutine("BreakDelay");
+		if ((collision.gameObject.tag == "bird") || (collision.gameObject.tag == "attackBird") && (bad == true) && (broken == false))
+			Break ();
     }
 
     IEnumerator BreakDelay()
