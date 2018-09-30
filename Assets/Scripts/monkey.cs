@@ -10,6 +10,7 @@ public class monkey : MonoBehaviour {
     public GameObject target;
     public GameObject nearestGrabbingPointRight;
 	public GameObject nearestGrabbingPointLeft;
+	public Animator animations;
 	public Text outOfBananas;
     public float speed;
     public float bananaOMeter;
@@ -66,6 +67,7 @@ public class monkey : MonoBehaviour {
             //	Debug.Log (bananaOMeter);
             bananaObar.fillAmount = bananaOMeter / maxBananaMeter;
 			if (Input.GetMouseButtonUp (0)) {
+				animations.SetTrigger("jumping");
 				OnClick ();
 				if (Input.mousePosition.x < Screen.width / 2) {
 					lastTapRight = false;

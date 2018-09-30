@@ -1227,7 +1227,6 @@ MonoBehaviour:
   bird: {fileID: 1559657029688492, guid: 5b51bcc8588df894e96e12efeb18a06a, type: 2}
   attackBird: {fileID: 1650904384609030, guid: e6dbade3461e3f1498564c51560f95a3, type: 2}
   squirrel: {fileID: 1357242160070038, guid: c878cc633d2982d409bf9ee47be2dfcd, type: 2}
-  splash: {fileID: 198379584911401146, guid: 259702b2a36d240f082e885016e6a472, type: 2}
   bananaProbability: 33
   shroomProbability: 10
   birdProbability: 33
@@ -1469,6 +1468,7 @@ GameObject:
   - component: {fileID: 1855714628}
   - component: {fileID: 1855714629}
   - component: {fileID: 1855714630}
+  - component: {fileID: 1855714631}
   m_Layer: 0
   m_Name: theMonkey
   m_TagString: monkey
@@ -1551,6 +1551,8 @@ MonoBehaviour:
   target: {fileID: 0}
   nearestGrabbingPointRight: {fileID: 0}
   nearestGrabbingPointLeft: {fileID: 0}
+  animations: {fileID: 1855714631}
+  outOfBananas: {fileID: 2121933674}
   speed: 12
   bananaOMeter: 0
   currentBananameter: 0
@@ -1606,6 +1608,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &1855714631
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1855714625}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 667248219fd41334e90e72ded6566345, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1909865349
 Prefab:
   m_ObjectHideFlags: 0
