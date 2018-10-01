@@ -12,12 +12,13 @@ public class Score : MonoBehaviour {
 
     private void Start()
     {
-        if (PlayerPrefsX.GetIntArray("scores") != null) // not the first time playing?
-        highScores = PlayerPrefsX.GetIntArray("scores");
-        else //initialise "empty scores
-        {
-            PlayerPrefsX.SetIntArray("scores", emptyScores);
-        }
+		
+		if (!PlayerPrefs.HasKey("orderInScore")) { // first time playing?
+			print ("first time playing");
+			PlayerPrefsX.SetIntArray ("scores", emptyScores);
+		} else
+			print ("not the first time");
+			highScores = PlayerPrefsX.GetIntArray("scores");
     }
 
     private void Update()
@@ -45,7 +46,7 @@ public class Score : MonoBehaviour {
 		int tempScore = 0;
 		int nextScore = 0;
         highScores = PlayerPrefsX.GetIntArray("scores");
-
+		PlayerPrefs.SetInt ("orderInScore", 99);
         for (int i = 0; i < highScores.Length; i++)
         {
 			if (newHighScore == false) {

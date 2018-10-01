@@ -15,8 +15,7 @@ public class GameOver : MonoBehaviour {
     void Start () {
         myscore = PlayerPrefs.GetInt("myScore");
         myOrderInScore = PlayerPrefs.GetInt("orderInScore");
-
-        if (PlayerPrefsX.GetIntArray("scores") != null) 
+		//test
             highScores = PlayerPrefsX.GetIntArray("scores");
 
         for (int i = 0;i < highScores.Length; i++)
