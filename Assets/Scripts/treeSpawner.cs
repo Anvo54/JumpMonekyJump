@@ -29,8 +29,8 @@ public class treeSpawner : MonoBehaviour {
     public float badbranchProbability;
 	public float nobranchProbability;
     public float climbHeight;
+	public Text height;
     public Text reached;
-    public float reachTextTime = 0.7f;
 
     private Score myscore;
     // Use this for initialization
@@ -39,16 +39,49 @@ public class treeSpawner : MonoBehaviour {
 		monkeyinstance = mymonkey.GetComponent<monkey>();
 		CreateNewTree ();
         myscore = gameObject.GetComponent<Score>();
+		 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (transform.position.y - myCamera.transform.position.y < 25) CreateNewTree();
         climbHeight = monkeyinstance.gameObject.transform.position.y;
-        Debug.Log(reachTextTime);
-        //  Debug.Log(climbHeight);
         if (monkeyinstance.mystate != "dead") myscore.MyScore = (int) climbHeight;
+
+		if(climbHeight < 1){
+			height.text = "";
+		}else height.text = Mathf.Round(climbHeight).ToString() + "m reached";
+
+
+
+
+		if (climbHeight > 100 && climbHeight < 110)
+		{
+			ReachText("100m reached");
+			//myCamera.GetComponent<Camera>().backgroundColor = new Color(0, 0, 0);
+
+		} else if (climbHeight > 150 && climbHeight < 160)
+        {
+            ReachText("150 m Reached");
+		} else if (climbHeight > 200 && climbHeight < 210)
+        {
+            ReachText("200 m Reached");
+		} else if (climbHeight > 300 && climbHeight < 310)
+        {
+            ReachText("300 m Reached");
+		} else if (climbHeight > 400 && climbHeight < 410)
+        {
+            ReachText("400 m Reached");
+        }
+
+		else ReachText("");
     }
+
+	void ReachText(string heightreach)
+	{
+		reached.text = heightreach;
+	}
+
 
     void CreateNewTree()
     {
@@ -66,22 +99,10 @@ public class treeSpawner : MonoBehaviour {
             {
                 SpawnBird(newtree);
             }
-
+            
         }
         else if(climbHeight > 50 && climbHeight < 100)
         {
-            if(reachTextTime > 0)
-            {
-                reached.text = "100m Reached!!";
-                reachTextTime -= Time.deltaTime;
-                
-            }
-            else
-            {
-                reached.text = "";
-            }
-            
-            myCamera.GetComponent<Camera>().backgroundColor = new Color(0, 0, 0);
             Debug.Log("Reached 100m");
 			badbranchProbability = 20;
             bananaProbability -= 5;
@@ -129,6 +150,9 @@ public class treeSpawner : MonoBehaviour {
         
         branchSpawnpointList.Clear();
     }
+
+
+
 
 	void CreateBranches()
 	{

@@ -10,6 +10,8 @@ public class monkey : MonoBehaviour {
     public GameObject target;
     public GameObject nearestGrabbingPointRight;
 	public GameObject nearestGrabbingPointLeft;
+	public Animator animations;
+	public Text outOfBananas;
     public float speed;
     public float bananaOMeter;
     public float currentBananameter;
@@ -18,7 +20,6 @@ public class monkey : MonoBehaviour {
 
     public List<GameObject> rightGrabbingPointList;
 	public List<GameObject> leftGrabbingPointList;
-	public Text bananaOMeterText;
 	public GameObject myEyes;
 	public GameObject postProcessingVol;
 
@@ -47,10 +48,15 @@ public class monkey : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+
+		if (bananaOMeter < 0){
+			outOfBananas.text = "Out of bananas!";
+		}
+
         if (bananaOMeter > maxBananaMeter)
         {
             maxBananaMeter = bananaOMeter;
-            Debug.Log(maxBananaMeter);
+            //Debug.Log(maxBananaMeter);
         }
 
 
@@ -60,9 +66,8 @@ public class monkey : MonoBehaviour {
 			bananaOMeter -= Time.deltaTime * 5;
             //	Debug.Log (bananaOMeter);
             bananaObar.fillAmount = bananaOMeter / maxBananaMeter;
-            bananaOMeterText.text = Mathf.Round (bananaOMeter).ToString ();
-
 			if (Input.GetMouseButtonUp (0)) {
+				animations.SetTrigger("jumping");
 				OnClick ();
 				if (Input.mousePosition.x < Screen.width / 2) {
 					lastTapRight = false;
