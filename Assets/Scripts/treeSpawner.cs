@@ -9,8 +9,9 @@ public class treeSpawner : MonoBehaviour {
     public GameObject mymonkey;
     public GameObject myCamera;
 	private monkey monkeyinstance;
-
     private GameObject newtree;
+    public GameObject jungleBackground;
+    public GameObject newJungleBG;
 	public List<GameObject> branchSpawnpointList;
 	public GameObject branch;
 	public GameObject subbranch;
@@ -29,8 +30,11 @@ public class treeSpawner : MonoBehaviour {
     public float badbranchProbability;
 	public float nobranchProbability;
     public float climbHeight;
-	public Text height;
+    private float bgImgHeight;
+    public Text height;
     public Text reached;
+    
+
 
     private Score myscore;
     // Use this for initialization
@@ -54,12 +58,13 @@ public class treeSpawner : MonoBehaviour {
 
 
 
-
-		if (climbHeight > 100 && climbHeight < 110)
+        if(climbHeight < -15)
+        {
+            ReachText("Tap to jump!");
+        }
+		  else if (climbHeight > 100 && climbHeight < 110)
 		{
 			ReachText("100m reached");
-			//myCamera.GetComponent<Camera>().backgroundColor = new Color(0, 0, 0);
-
 		} else if (climbHeight > 150 && climbHeight < 160)
         {
             ReachText("150 m Reached");
@@ -86,6 +91,7 @@ public class treeSpawner : MonoBehaviour {
     void CreateNewTree()
     {
         newtree = Instantiate(tree, transform.position, Quaternion.identity);
+        newJungleBG = Instantiate(jungleBackground, new Vector3(transform.position.x,-30f+bgImgHeight, transform.position.z) ,Quaternion.identity);
         transform.Translate(0, 20, 0);
 		CreateBranches ();
 
@@ -93,7 +99,6 @@ public class treeSpawner : MonoBehaviour {
 
         if (climbHeight < 50)
         {
-            Debug.Log("below 50");
             randomNumber = Random.value * 100;
             if (randomNumber< birdProbability)
             {
@@ -103,7 +108,6 @@ public class treeSpawner : MonoBehaviour {
         }
         else if(climbHeight > 50 && climbHeight < 100)
         {
-            Debug.Log("Reached 100m");
 			badbranchProbability = 20;
             bananaProbability -= 5;
             randomNumber = Random.value * 100;
@@ -121,7 +125,6 @@ public class treeSpawner : MonoBehaviour {
         }
         else if (climbHeight > 150)
         {
-            Debug.Log("150m Reached!");
 			badbranchProbability = 30;
             bananaProbability -= 10;
             randomNumber = Random.value * 100;
