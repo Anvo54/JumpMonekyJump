@@ -10,8 +10,6 @@ public class treeSpawner : MonoBehaviour {
     public GameObject myCamera;
 	private monkey monkeyinstance;
     private GameObject newtree;
-    public GameObject jungleBackground;
-    public GameObject newJungleBG;
 	public List<GameObject> branchSpawnpointList;
 	public GameObject branch;
 	public GameObject subbranch;
@@ -30,7 +28,6 @@ public class treeSpawner : MonoBehaviour {
     public float badbranchProbability;
 	public float nobranchProbability;
     public float climbHeight;
-    private float bgImgHeight;
     public Text height;
     public Text reached;
     
@@ -43,7 +40,7 @@ public class treeSpawner : MonoBehaviour {
 		monkeyinstance = mymonkey.GetComponent<monkey>();
 		CreateNewTree ();
         myscore = gameObject.GetComponent<Score>();
-		 
+
 	}
 	
 	// Update is called once per frame
@@ -51,12 +48,12 @@ public class treeSpawner : MonoBehaviour {
 		if (transform.position.y - myCamera.transform.position.y < 25) CreateNewTree();
         climbHeight = monkeyinstance.gameObject.transform.position.y;
         if (monkeyinstance.mystate != "dead") myscore.MyScore = (int) climbHeight;
+        
+        
 
-		if(climbHeight < 1){
+		if(climbHeight < 0){
 			height.text = "";
 		}else height.text = Mathf.Round(climbHeight).ToString() + "m reached";
-
-
 
         if(climbHeight < -15)
         {
@@ -91,7 +88,6 @@ public class treeSpawner : MonoBehaviour {
     void CreateNewTree()
     {
         newtree = Instantiate(tree, transform.position, Quaternion.identity);
-        newJungleBG = Instantiate(jungleBackground, new Vector3(transform.position.x,-30f+bgImgHeight, transform.position.z) ,Quaternion.identity);
         transform.Translate(0, 20, 0);
 		CreateBranches ();
 
@@ -153,7 +149,6 @@ public class treeSpawner : MonoBehaviour {
         
         branchSpawnpointList.Clear();
     }
-
 
 
 
@@ -288,5 +283,8 @@ public class treeSpawner : MonoBehaviour {
         Instantiate(squirrel, squirrelPosition, Quaternion.identity);
    //     squirrel.transform.Translate(0, -10, 0);
     }
+
+
+
 
 }
