@@ -246,7 +246,7 @@ public class monkey : MonoBehaviour {
             myEyes.SetActive(true);
             myRB.isKinematic = false;
             yield return new WaitForSeconds(Random.value + 0.25f);
-            myRB.AddForce(new Vector2(-1, 1), ForceMode2D.Impulse);
+            myRB.AddForce(new Vector2(-5, 5), ForceMode2D.Impulse);
             myRB.AddTorque(Random.value * 5);
             myRB.gravityScale = 100;
             doubleTap = false;

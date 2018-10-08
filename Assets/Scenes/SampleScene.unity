@@ -1223,7 +1223,10 @@ MonoBehaviour:
   badsubbranch: {fileID: 1827984443599658, guid: 3dd41e571230947409952b9759f90536,
     type: 2}
   banana: {fileID: 1058149501184722, guid: 8be6c36d99af2214cba5465027edfb76, type: 2}
-  shroom: {fileID: 1684539050260196, guid: e14a02d2df8e5d947b0a5a1cbf44c79b, type: 2}
+  shrooms:
+  - {fileID: 1684539050260196, guid: e14a02d2df8e5d947b0a5a1cbf44c79b, type: 2}
+  - {fileID: 1330782984714862, guid: 4fb27528650ede642ac43cdf19d558de, type: 2}
+  - {fileID: 1857925949835000, guid: c8235f69d895f4e4e8bce9997f33fb18, type: 2}
   bird: {fileID: 1559657029688492, guid: 5b51bcc8588df894e96e12efeb18a06a, type: 2}
   attackBird: {fileID: 1650904384609030, guid: e6dbade3461e3f1498564c51560f95a3, type: 2}
   squirrel: {fileID: 1357242160070038, guid: c878cc633d2982d409bf9ee47be2dfcd, type: 2}
