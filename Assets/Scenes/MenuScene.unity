@@ -184,12 +184,12 @@ Prefab:
     - target: {fileID: 224253054510334818, guid: 22c3da394511ccf468cbe09d2b6f8591,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 750
+      value: 1078
       objectReference: {fileID: 0}
     - target: {fileID: 224253054510334818, guid: 22c3da394511ccf468cbe09d2b6f8591,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 1028
+      value: 675
       objectReference: {fileID: 0}
     - target: {fileID: 20057740574928054, guid: 22c3da394511ccf468cbe09d2b6f8591,
         type: 2}
@@ -204,6 +204,26 @@ Prefab:
     - target: {fileID: 20057740574928054, guid: 22c3da394511ccf468cbe09d2b6f8591,
         type: 2}
       propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114693897229524720, guid: 22c3da394511ccf468cbe09d2b6f8591,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0545a9329cae049408e0f30c309c3cc2,
+        type: 3}
+    - target: {fileID: 224253054510334818, guid: 22c3da394511ccf468cbe09d2b6f8591,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 224253054510334818, guid: 22c3da394511ccf468cbe09d2b6f8591,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1970155401642602, guid: 22c3da394511ccf468cbe09d2b6f8591, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

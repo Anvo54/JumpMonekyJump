@@ -10,6 +10,8 @@ public class monkey : MonoBehaviour {
     public GameObject target;
     public GameObject nearestGrabbingPointRight;
 	public GameObject nearestGrabbingPointLeft;
+	public Animator animations;
+	public Text outOfBananas;
     public float speed;
     public float bananaOMeter;
     public float currentBananameter;
@@ -18,7 +20,6 @@ public class monkey : MonoBehaviour {
 
     public List<GameObject> rightGrabbingPointList;
 	public List<GameObject> leftGrabbingPointList;
-	public Text bananaOMeterText;
 	public GameObject myEyes;
 	public GameObject postProcessingVol;
 
@@ -47,10 +48,16 @@ public class monkey : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+
+		if (bananaOMeter < 0){
+			outOfBananas.text = "Out of bananas!";
+            StartCoroutine("BananaMeterDrop");
+        }
+
         if (bananaOMeter > maxBananaMeter)
         {
             maxBananaMeter = bananaOMeter;
-            Debug.Log(maxBananaMeter);
+            //Debug.Log(maxBananaMeter);
         }
 
 
@@ -60,9 +67,8 @@ public class monkey : MonoBehaviour {
 			bananaOMeter -= Time.deltaTime * 5;
             //	Debug.Log (bananaOMeter);
             bananaObar.fillAmount = bananaOMeter / maxBananaMeter;
-            bananaOMeterText.text = Mathf.Round (bananaOMeter).ToString ();
-
 			if (Input.GetMouseButtonUp (0)) {
+				animations.SetTrigger("jumping");
 				OnClick ();
 				if (Input.mousePosition.x < Screen.width / 2) {
 					lastTapRight = false;
@@ -189,7 +195,6 @@ public class monkey : MonoBehaviour {
         {
             Destroy(collision.gameObject);
             bananaOMeter +=60;
-            Debug.Log("Banana Collected");
         }
 
 		if (collision.gameObject.tag == "shroom")
@@ -197,17 +202,28 @@ public class monkey : MonoBehaviour {
 			Destroy(collision.gameObject);
 			postProcessingVol.SetActive (true);
 		}
-    }
 
-   
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+        if (collision.gameObject.tag == "bird")
+        {
+            bananaOMeter -= 12;
+            Debug.Log("bird hit");
+        }
+
         if (collision.gameObject.tag == "attackBird")
         {
-            bananaOMeter -= 25;
-            Debug.Log("Attack bird hitted!");
+            bananaOMeter -= 12;
+            Debug.Log("attackbird hit");
         }
-    } 
+
+        if (collision.gameObject.tag == "squirrel")
+        {
+            bananaOMeter -= 12;
+            Debug.Log("squirrel hit");
+        }
+    }
+
+
+
 
     IEnumerator CartoonDrop(branch currentBranch){
 		if (Vector3.Distance (transform.position, currentBranch.gameObject.transform.Find("grabbingpoint").transform.position) < 0.1f) {
@@ -223,7 +239,22 @@ public class monkey : MonoBehaviour {
 			
 	}
 
-	public static bool IsDoubleTap(){
+    IEnumerator BananaMeterDrop()
+    {
+            mystate = "dead";
+            musicPlayer.GetComponent<AudioSource>().enabled = false;
+            myEyes.SetActive(true);
+            myRB.isKinematic = false;
+            yield return new WaitForSeconds(Random.value + 0.25f);
+            myRB.AddForce(new Vector2(-5, 5), ForceMode2D.Impulse);
+            myRB.AddTorque(Random.value * 5);
+            myRB.gravityScale = 100;
+            doubleTap = false;
+            StartCoroutine("RestartDelay");
+
+    }
+
+    public static bool IsDoubleTap(){
 		bool result = false;
 		float MaxTimeWait = 1;
 		float VariancePosition = 1;
