@@ -667,7 +667,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 127.1
   orthographic: 1
   orthographic size: 12.580803
   m_Depth: -1
@@ -1216,6 +1216,10 @@ MonoBehaviour:
   tree: {fileID: 1743283310134322, guid: 5937196777b7148c78bc04e2b2ed415f, type: 2}
   mymonkey: {fileID: 1855714625}
   myCamera: {fileID: 519420028}
+  jungleBackground: {fileID: 1983765198562706, guid: 4e034617fba88b644a23fae7cb7adcb9,
+    type: 2}
+  newJungleBG: {fileID: 1983765198562706, guid: 4e034617fba88b644a23fae7cb7adcb9,
+    type: 2}
   branchSpawnpointList: []
   branch: {fileID: 1621708015804338, guid: 28ec2690f862c314ea3aa44e0743baf1, type: 2}
   subbranch: {fileID: 1374165044271002, guid: deb2da7a548ce3045b3a09c1680f2f00, type: 2}
@@ -1610,7 +1614,7 @@ Animator:
   m_GameObject: {fileID: 1855714625}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 667248219fd41334e90e72ded6566345, type: 2}
+  m_Controller: {fileID: 9100000, guid: 49055e53af1971f4a9d3893852f8509c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1823,7 +1827,7 @@ Animator:
   m_GameObject: {fileID: 2121933672}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fbe7639347ff3457093bb1d72dccb030, type: 2}
+  m_Controller: {fileID: 9100000, guid: 56c2f66621e748541b2c5fd6cf820d46, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
