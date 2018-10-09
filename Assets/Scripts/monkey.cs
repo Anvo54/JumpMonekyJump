@@ -51,7 +51,8 @@ public class monkey : MonoBehaviour {
 
 		if (bananaOMeter < 0){
 			outOfBananas.text = "Out of bananas!";
-		}
+            StartCoroutine("BananaMeterDrop");
+        }
 
         if (bananaOMeter > maxBananaMeter)
         {
@@ -194,7 +195,6 @@ public class monkey : MonoBehaviour {
         {
             Destroy(collision.gameObject);
             bananaOMeter +=60;
-            Debug.Log("Banana Collected");
         }
 
 		if (collision.gameObject.tag == "shroom")
@@ -202,17 +202,27 @@ public class monkey : MonoBehaviour {
 			Destroy(collision.gameObject);
 			postProcessingVol.SetActive (true);
 		}
-    }
 
-   
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+        if (collision.gameObject.tag == "bird")
+        {
+            bananaOMeter -= 12;
+            Debug.Log("bird hit");
+        }
         if (collision.gameObject.tag == "attackBird")
         {
-            bananaOMeter -= 25;
-            Debug.Log("Attack bird hitted!");
+            bananaOMeter -= 12;
+            Debug.Log("attackbird hit");
         }
-    } 
+
+        if (collision.gameObject.tag == "squirrel")
+        {
+            bananaOMeter -= 12;
+            Debug.Log("squirrel hit");
+        }
+    }
+
+
+
 
     IEnumerator CartoonDrop(branch currentBranch){
 		if (Vector3.Distance (transform.position, currentBranch.gameObject.transform.Find("grabbingpoint").transform.position) < 0.1f) {
@@ -228,7 +238,22 @@ public class monkey : MonoBehaviour {
 			
 	}
 
-	public static bool IsDoubleTap(){
+    IEnumerator BananaMeterDrop()
+    {
+            mystate = "dead";
+            musicPlayer.GetComponent<AudioSource>().enabled = false;
+            myEyes.SetActive(true);
+            myRB.isKinematic = false;
+            yield return new WaitForSeconds(Random.value + 0.25f);
+            myRB.AddForce(new Vector2(-5, 5), ForceMode2D.Impulse);
+            myRB.AddTorque(Random.value * 5);
+            myRB.gravityScale = 100;
+            doubleTap = false;
+            StartCoroutine("RestartDelay");
+
+    }
+
+    public static bool IsDoubleTap(){
 		bool result = false;
 		float MaxTimeWait = 1;
 		float VariancePosition = 1;
