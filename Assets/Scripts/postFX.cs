@@ -10,6 +10,7 @@ public class postFX : MonoBehaviour {
 	LensDistortion lensDistortionLayer = null;
 	FloatParameter myIntensity;
 	private bool tripping = true;
+	public GameObject musicPlayer;
 	// Use this for initialization
 	void Start () {
 		
@@ -24,6 +25,8 @@ public class postFX : MonoBehaviour {
 	{
 		tripping = true;
 		StartCoroutine ("TurnOffDelay");
+		musicPlayer = GameObject.FindGameObjectWithTag ("musicplayer");
+		musicPlayer.SetActive (false);
 	}
 
 	
@@ -50,6 +53,7 @@ public class postFX : MonoBehaviour {
 		yield return new WaitForSeconds (3f);
 		tripping = false;
 		yield return new WaitForSeconds (1f);
+		musicPlayer.SetActive (true);
 		gameObject.SetActive (false);
 	}
 }

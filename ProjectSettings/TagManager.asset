@@ -17,6 +17,7 @@ TagManager:
   - treespawner
   - attackbird
   - squirrel
+  - musicplayer
   layers:
   - Default
   - TransparentFX

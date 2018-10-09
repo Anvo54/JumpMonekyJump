@@ -34,7 +34,7 @@ public class branch : MonoBehaviour {
         myJoint.breakTorque = 100;
         float randomForce = 20 + Random.value * 100;
 		subBranchRB.AddTorque (20 + Random.value * 100);
-        Vector2 randomDir = new Vector2(Random.value, Random.value);
+        Vector2 randomDir = new Vector2(0.25f+Random.value, 0.25f+Random.value);
         subBranchRB.AddForce(randomDir * randomForce, ForceMode2D.Impulse);
         GameObject newBreakingParticles = Instantiate(breakingParticles, subBranch.transform.position, Quaternion.identity);
         GameObject newSmokeParticles = Instantiate(smokeParticles, subBranch.transform.position, Quaternion.identity);
