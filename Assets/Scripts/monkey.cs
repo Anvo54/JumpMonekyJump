@@ -208,7 +208,6 @@ public class monkey : MonoBehaviour {
             bananaOMeter -= 12;
             Debug.Log("bird hit");
         }
-
         if (collision.gameObject.tag == "attackBird")
         {
             bananaOMeter -= 12;
