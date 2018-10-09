@@ -15,7 +15,7 @@ public class treeSpawner : MonoBehaviour {
 	public GameObject subbranch;
     public GameObject badbranch;
     public GameObject badsubbranch;
-    public GameObject banana;
+    public GameObject[] bananas;
 	public GameObject[] shrooms;
     public GameObject bird;
     public GameObject attackBird;
@@ -254,7 +254,8 @@ public class treeSpawner : MonoBehaviour {
 
     void SpawnBanana(GameObject bananaBranch)
     {
-        Instantiate(banana, bananaBranch.transform.position, Quaternion.identity);
+		int bananaRandom = Random.Range(0,bananas.Length);
+		Instantiate(bananas[bananaRandom], bananaBranch.transform.position, Quaternion.identity);
     }
 
 	void SpawnShroom(GameObject shroomBranch)

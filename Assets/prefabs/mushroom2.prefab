@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212135227010029790}
   - component: {fileID: 61116888678857308}
   - component: {fileID: 50481991217726556}
+  - component: {fileID: 114033950061482250}
   m_Layer: 0
   m_Name: mushroom2
   m_TagString: shroom
@@ -87,6 +88,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
+--- !u!114 &114033950061482250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330782984714862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bc0770d34252e4c9538409cf36bd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212135227010029790
 SpriteRenderer:
   m_ObjectHideFlags: 1
