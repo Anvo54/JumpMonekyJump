@@ -21,6 +21,8 @@ public class Bird : MonoBehaviour {
 
         mymonkey = GameObject.FindGameObjectWithTag("monkey");
         StartCoroutine("DeathDelay");
+		FindObjectOfType<AudioManager>().Play("Macaw");
+
         
 		
 	}

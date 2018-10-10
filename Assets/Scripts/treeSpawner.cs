@@ -28,6 +28,7 @@ public class treeSpawner : MonoBehaviour {
     public float badbranchProbability;
 	public float nobranchProbability;
     public float climbHeight;
+	private bool startTip = true;
     public Text height;
     public Text reached;
     
@@ -48,30 +49,31 @@ public class treeSpawner : MonoBehaviour {
 		if (transform.position.y - myCamera.transform.position.y < 25) CreateNewTree();
         climbHeight = monkeyinstance.gameObject.transform.position.y;
         if (monkeyinstance.mystate != "dead") myscore.MyScore = (int) climbHeight;
-        
+
         
 
 		if(climbHeight < 0){
 			height.text = "";
 		}else height.text = Mathf.Round(climbHeight).ToString() + "m reached";
 
-        if(climbHeight < -15)
+		if(climbHeight < -15 && startTip == true)
         {
             ReachText("Tap to jump!");
         }
-		  else if (climbHeight > 100 && climbHeight < 110)
+		else if (climbHeight > 100 && climbHeight < 110 && monkeyinstance.mystate != "dead")
 		{
+			startTip = false;
 			ReachText("100m reached");
-		} else if (climbHeight > 150 && climbHeight < 160)
+		} else if (climbHeight > 150 && climbHeight < 160 && monkeyinstance.mystate != "dead")
         {
             ReachText("150 m Reached");
-		} else if (climbHeight > 200 && climbHeight < 210)
+		} else if (climbHeight > 200 && climbHeight < 210 && monkeyinstance.mystate != "dead")
         {
             ReachText("200 m Reached");
-		} else if (climbHeight > 300 && climbHeight < 310)
+		} else if (climbHeight > 300 && climbHeight < 310 && monkeyinstance.mystate != "dead")
         {
             ReachText("300 m Reached");
-		} else if (climbHeight > 400 && climbHeight < 410)
+		} else if (climbHeight > 400 && climbHeight < 410 && monkeyinstance.mystate != "dead")
         {
             ReachText("400 m Reached");
         }

@@ -85,6 +85,7 @@ public class monkey : MonoBehaviour {
 
 
 			if (Input.GetKeyDown ("w")) {
+				
 				JumpLeft ();
 			}
 			if (Input.GetKeyDown ("e")) {
@@ -193,6 +194,7 @@ public class monkey : MonoBehaviour {
     {
         if (collision.gameObject.tag == "banana")
         {
+			FindObjectOfType<AudioManager>().Play("BananaPeel");
             Destroy(collision.gameObject);
             bananaOMeter +=60;
         }
@@ -216,6 +218,7 @@ public class monkey : MonoBehaviour {
 
         if (collision.gameObject.tag == "squirrel")
         {
+			FindObjectOfType<AudioManager>().Play("Squirrel");
             bananaOMeter -= 12;
             Debug.Log("squirrel hit");
         }
@@ -272,6 +275,7 @@ public class monkey : MonoBehaviour {
 
 	private void JumpLeft(){
 		Debug.Log ("Vasen");
+		FindObjectOfType<AudioManager>().Play("jump");
 		FindNearestGrappingPointLeft ();
 		target = nearestGrabbingPointLeft;
 		jumping = true;
@@ -279,9 +283,11 @@ public class monkey : MonoBehaviour {
 
 	private void JumpRight(){
 		Debug.Log ("Oikea");
+		FindObjectOfType<AudioManager>().Play("jump");
 		FindNearestGrappingPointRight ();
 		target = nearestGrabbingPointRight;
 		jumping = true;
+        
 	}
 
 	public void OnClick(){

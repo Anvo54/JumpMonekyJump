@@ -7,11 +7,12 @@ public class attackingBird : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		FindObjectOfType<AudioManager>().Play("AttackBird");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		transform.Translate(-moveSpeed*Time.deltaTime,-moveSpeed*Time.deltaTime,0);
+       
 	}
 }
