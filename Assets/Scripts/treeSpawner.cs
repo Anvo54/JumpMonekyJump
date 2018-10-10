@@ -28,7 +28,6 @@ public class treeSpawner : MonoBehaviour {
     public float badbranchProbability;
 	public float nobranchProbability;
     public float climbHeight;
-	private bool startTip = true;
     public Text height;
     public Text reached;
     
@@ -56,13 +55,12 @@ public class treeSpawner : MonoBehaviour {
 			height.text = "";
 		}else height.text = Mathf.Round(climbHeight).ToString() + "m reached";
 
-		if(climbHeight < -15 && startTip == true)
+		if(climbHeight < -15 && monkeyinstance.mystate != "dead")
         {
             ReachText("Tap to jump!");
         }
 		else if (climbHeight > 100 && climbHeight < 110 && monkeyinstance.mystate != "dead")
 		{
-			startTip = false;
 			ReachText("100m reached");
 		} else if (climbHeight > 150 && climbHeight < 160 && monkeyinstance.mystate != "dead")
         {

@@ -50,6 +50,7 @@ public class monkey : MonoBehaviour {
 
 
 		if (bananaOMeter < 0){
+			FindObjectOfType<AudioManager>().Play("Death");
 			outOfBananas.text = "Out of bananas!";
             StartCoroutine("BananaMeterDrop");
         }
@@ -229,6 +230,7 @@ public class monkey : MonoBehaviour {
 
     IEnumerator CartoonDrop(branch currentBranch){
 		if (Vector3.Distance (transform.position, currentBranch.gameObject.transform.Find("grabbingpoint").transform.position) < 0.1f) {
+			FindObjectOfType<AudioManager>().Play("Death");
 			mystate = "dead";
 			musicPlayer.GetComponent<AudioSource> ().enabled = false;
 			myEyes.SetActive (true);
