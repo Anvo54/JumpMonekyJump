@@ -1,15 +1,10 @@
 fileFormatVersion: 2
-guid: 97148695c7e68405a9f274e09ab83fda
+guid: 5d3fb1e4201064d408ab4e256bcaa9b9
 TextureImporter:
   fileIDToRecycleName:
-    21300000: map ilands active and de active_0
-    21300002: map ilands active and de active_1
-    21300004: map ilands active and de active_2
-    21300006: map ilands active and de active_3
-    21300008: map ilands active and de active_4
-    21300010: map ilands active and de active_5
-    21300012: map ilands active and de active_6
-    21300014: map ilands active and de active_7
+    21300000: buttons_0
+    21300002: buttons_1
+    21300004: buttons_2
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -125,13 +120,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: map ilands active and de active_0
+      name: buttons_0
       rect:
         serializedVersion: 2
-        x: 99
-        y: 1063
-        width: 409
-        height: 402
+        x: 21
+        y: 24
+        width: 149
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,138 +134,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c7fca523b092445ca7685260e9c5934
+      spriteID: b7e88097d42854ebdb2ba90f8d965a98
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map ilands active and de active_1
+      name: buttons_1
       rect:
         serializedVersion: 2
-        x: 608
-        y: 1178
-        width: 286
-        height: 131
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6114a43f82cf041a1ac50427c1ecd8b1
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map ilands active and de active_2
-      rect:
-        serializedVersion: 2
-        x: 987
-        y: 0
-        width: 990
-        height: 1480
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d393d62ddfb6b453fb76332b003bb17a
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map ilands active and de active_3
-      rect:
-        serializedVersion: 2
-        x: 1616
-        y: 1141
-        width: 362
-        height: 206
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 103706e7be79340e3b67db7baef7a959
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map ilands active and de active_4
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 572
-        width: 447
-        height: 437
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a878e6abc1678460e83239ee3751973d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map ilands active and de active_5
-      rect:
-        serializedVersion: 2
-        x: 553
-        y: 695
-        width: 423
-        height: 110
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8c0fbe6612e93484a9cd76a46ddd857d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map ilands active and de active_6
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 28
-        width: 501
-        height: 490
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a6bc32499b2174395a1fc2fc4195d627
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map ilands active and de active_7
-      rect:
-        serializedVersion: 2
-        x: 613
-        y: 175
-        width: 281
+        x: 214
+        y: 26
+        width: 147
         height: 147
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -279,7 +154,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39ec3535c6df94f5b9f4cd16d0d7aece
+      spriteID: 7ed2f5f1ab14f41cb8719785612dfe25
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buttons_2
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 26
+        width: 148
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f51b40294d9a74ca697a54f3fc10c227
       vertices: []
       indices: 
       edges: []
@@ -287,7 +182,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: fc2009664264d451592be3bbb5b1e8fa
+    spriteID: d03d7de791e8d47149b5258af09d1e07
     vertices: []
     indices: 
     edges: []

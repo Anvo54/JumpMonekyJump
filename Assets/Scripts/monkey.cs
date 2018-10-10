@@ -51,7 +51,7 @@ public class monkey : MonoBehaviour {
 
 		if (bananaOMeter < 0){
 			outOfBananas.text = "Out of bananas!";
-            StartCoroutine("BananaMeterDrop");
+			if (mystate!= "dead") StartCoroutine("BananaMeterDrop");
         }
 
         if (bananaOMeter > maxBananaMeter)
